@@ -753,7 +753,7 @@ function renderResults(r) {
           const cls = x.draw ? '' : (gs ? 'w' : 'l');
           return `<div class="it">
             <div class="d">${fmtDate(x.date)}</div>
-            <div>${teamName(x.home)} <b>${x.hg}-${x.ag}</b> ${teamName(x.away)}</div>
+            <div>${teamName(x.home)} <b>${x.hg}-${x.ag}</b> ${teamName(x.away)}${x.htg >= 0 ? ` <span class="tag-league">(İY ${x.htg}-${x.atg})</span>` : ''}</div>
             <div class="sc ${cls}">${x.draw ? 'B' : (gs ? 'G' : 'M')}</div>
           </div>`;
         }).join('')}
@@ -793,7 +793,7 @@ function renderResults(r) {
       <div class="list">
         ${r.history.rows.map((x) => `<div class="it">
           <div class="d">${fmtDate(x.date)}<br>${seasonLabel(x.season)}</div>
-          <div>${teamName(x.home)} <b>${x.hg}-${x.ag}</b> ${teamName(x.away)}
+          <div>${teamName(x.home)} <b>${x.hg}-${x.ag}</b> ${teamName(x.away)}${x.htg >= 0 ? ` <span class="tag-league">(İY ${x.htg}-${x.atg})</span>` : ''}
             <span class="tag-league">· ${esc(state.meta.leagues[x.league].name)}</span></div>
           <div class="sc">${f2(x.odds[0])} / ${f2(x.odds[1])} / ${f2(x.odds[2])}</div>
         </div>`).join('')}
@@ -1848,6 +1848,7 @@ function npBind() {
     if (saved.low != null) $('#npLow').checked = !!saved.low;
     if (saved.ou != null) $('#npOU').checked = !!saved.ou;
     if (saved.line) $('#npLine').value = saved.line;
+    if (saved.match) $('#npMatch').value = saved.match;
   } catch (_) {}
 }
 
@@ -1966,14 +1967,17 @@ async function npRun() {
   let input;
   try { input = npInput(); } catch (e) { toast(e.message); return; }
   if (!(input.h > 1 && input.d > 1 && input.a > 1)) { toast('1, X ve 2 oranlarını gir.'); return; }
-  const options = { count: +$('#npCount').value, excludeLow: $('#npLow').checked, useOU: $('#npOU').checked, line: $('#npLine').value };
-  Store.set('om_np_opts', JSON.stringify({ count: options.count, low: options.excludeLow, ou: options.useOU, line: options.line }));
+  const options = { count: +$('#npCount').value, excludeLow: $('#npLow').checked, useOU: $('#npOU').checked, line: $('#npLine').value, match: $('#npMatch').value };
+  Store.set('om_np_opts', JSON.stringify({ count: options.count, low: options.excludeLow, ou: options.useOU, line: options.line, match: options.match }));
   const out = $('#npOut');
   out.innerHTML = '<div class="card"><div class="hint">Benzer maçlar aranıyor…</div></div>';
   try {
     const r = await post('/api/panel', { input, options });
     NP.last = r;
     out.innerHTML = npRender(r, input);
+    const applyColor = (c) => { ['#npCardsList', '#npTblWrap'].forEach((s) => { const el = $(s); if (el) { if (c) el.style.setProperty('--npc', c); else el.style.removeProperty('--npc'); } }); };
+    $('#npColor').addEventListener('input', (e) => { Store.set('om_np_color', e.target.value); applyColor(e.target.value); });
+    $('#npColorReset').addEventListener('click', (e) => { e.preventDefault(); Store.set('om_np_color', ''); $('#npColor').value = '#ff8c28'; applyColor(''); });
     out.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (e) {
     out.innerHTML = `<div class="card"><div class="hint" style="color:var(--bad)">${esc(e.message)}</div></div>`;
@@ -1993,12 +1997,25 @@ function npRender(r, input) {
   const res = st.res;
   const htft = st.htft.slice(0, 4).map((x) => `<span class="chip">İY/MS ${esc(x.score)} <b>%${Math.round(x.p * 100)}</b></span>`).join('');
 
+  const tgt = r.input;
+  const hit = (v, t) => (Math.abs(v - t) < 0.005 ? ' class="eq"' : '');
   const rows = r.rows.map((x) => `<tr class="${x.rocket ? 'g6' : ''}">
       <td>${npIso(x.date)}</td><td>${esc(x.league)}</td>
       <td class="m">${esc(x.home)} – ${esc(x.away)}${x.rocket ? ' 🚀' : ''}</td>
       <td>${esc(x.ht || '—')}</td><td class="ms">${esc(x.ft)}</td><td>${esc(x.htft || '—')}</td>
-      <td>${npO(x.o1)}</td><td>${npO(x.oX)}</td><td>${npO(x.o2)}</td>
+      <td${hit(x.o1, tgt.h)}>${npO(x.o1)}</td><td${hit(x.oX, tgt.d)}>${npO(x.oX)}</td><td${hit(x.o2, tgt.a)}>${npO(x.o2)}</td>
       <td>${npO(x.under25)}</td><td>${npO(x.over25)}</td></tr>`).join('');
+  // telefon: skor önde, kart görünümü
+  const cards = r.rows.map((x) => `<div class="np-row${x.rocket ? ' g6' : ''}">
+      <div class="np-r1"><span>${npIso(x.date)}</span><span>${esc(x.league)}</span></div>
+      <div class="np-r2">
+        <span class="tm h">${esc(x.home)}</span>
+        <span class="sc"><b>${esc(x.ft)}</b><small>İY ${esc(x.ht || '—')}${x.htft ? ' · ' + esc(x.htft) : ''}</small></span>
+        <span class="tm a">${esc(x.away)}${x.rocket ? ' 🚀' : ''}</span>
+      </div>
+      <div class="np-r3"><span${hit(x.o1, tgt.h)}>1 ${npO(x.o1)}</span><span${hit(x.oX, tgt.d)}>X ${npO(x.oX)}</span><span${hit(x.o2, tgt.a)}>2 ${npO(x.o2)}</span><span>A ${npO(x.under25)}</span><span>Ü ${npO(x.over25)}</span></div>
+    </div>`).join('');
+  const tcol = Store.get('om_np_color') || '';
 
   const trend = (list, den, zeroRed) => list.slice(0, 8).map((x) => `<div class="np-tr">
       <span class="d${zeroRed && x.score === '0-0' ? ' z' : ''}"></span><span class="sc">${esc(x.score)}</span>
@@ -2031,11 +2048,14 @@ function npRender(r, input) {
   </div>
 
   <div class="card">
-    <h3>Geçmiş Maçlar <span class="spacer"></span><span class="hint">en yakın ${r.found} oran · yeniden eskiye</span></h3>
-    <div class="tbl"><table class="t np-t">
+    <h3>Geçmiş Maçlar <span class="spacer"></span>
+      <label class="np-color">Tablo rengi <input type="color" id="npColor" value="${tcol || '#ff8c28'}"></label>
+      <a href="#" class="np-reset" id="npColorReset">Sıfırla</a></h3>
+    <div class="np-cards-list" id="npCardsList" style="${tcol ? `--npc:${tcol}` : ''}">${cards}</div>
+    <div class="tbl np-tblwrap" id="npTblWrap" style="${tcol ? `--npc:${tcol}` : ''}"><table class="t np-t">
       <thead><tr><th>Tarih</th><th>Lig</th><th>Maç</th><th>İY</th><th>MS</th><th>İY/MS</th><th>1</th><th>X</th><th>2</th><th>2.5 Alt</th><th>2.5 Üst</th></tr></thead>
       <tbody>${rows}</tbody></table></div>
-    <div class="hint" style="margin-top:8px">🚀 = 6 ve üzeri gol. 1-X-2 sütunları bwin ${r.options.line === 'close' ? 'kapanış' : 'açılış'} oranıdır; 2.5 Alt/Üst bet365 ya da piyasa ortalamasıdır (kaynakta bwin'in gol oranı yok).</div>
+    <div class="hint" style="margin-top:8px">Turuncu oran = girdiğin oranla birebir aynı. 🚀 = 6 ve üzeri gol. 1-X-2 sütunları bwin ${r.options.line === 'close' ? 'kapanış' : 'açılış'} oranıdır; 2.5 Alt/Üst bet365 ya da piyasa ortalamasıdır (kaynakta bwin'in gol oranı yok).</div>
   </div>
 
   <div class="np-trends">
