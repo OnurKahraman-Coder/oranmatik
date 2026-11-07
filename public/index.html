@@ -29,8 +29,7 @@
     <div class="badge" id="badgeRange">—</div>
   </div>
   <nav class="tabs" id="tabs">
-    <button class="tab on" data-view="analiz">Analiz</button>
-    <button class="tab" data-view="panel">20 Maç</button>
+    <button class="tab on" data-view="panel">Analiz</button>
     <button class="tab" data-view="maclar">Maçlar</button>
     <button class="tab" data-view="tablolar">Tablolar</button>
     <button class="tab" data-view="basarim">Başarım</button>
@@ -43,7 +42,7 @@
 <main class="wrap">
 
   <!-- ================= ANALİZ ================= -->
-  <section class="view on" id="v-analiz">
+  <section class="view" id="v-analiz">
 
     <div class="card">
       <h3>Maç &amp; Oranlar <span class="spacer"></span><span class="hint" id="leagueHint"></span></h3>
@@ -129,17 +128,17 @@
   </section>
 
   <!-- ================= 20 MAÇLIK PANEL (bwin) ================= -->
-  <section class="view" id="v-panel">
+  <section class="view on" id="v-panel">
     <div class="card">
-      <h3>20 Maçlık İstatistik Paneli <span class="spacer"></span><span class="np-src">bwin</span></h3>
-      <div class="hint" style="margin:-4px 0 14px">Oranları kendin gir ya da listeden maç seç. Sistem bu bwin oranlarına en yakın geçmiş maçları bulur ve nasıl bittiklerini gösterir.</div>
+      <h3>Maç Analizi <span class="spacer"></span><span class="np-src">bwin</span></h3>
 
       <div class="np-seg" id="npSeg">
         <button data-np="oran">Oran Gir</button>
         <button data-np="mac" class="on">Maç Seç</button>
       </div>
 
-      <div class="np-opts">
+      <details class="np-adv"><summary>Ayarlar</summary>
+      <div class="np-opts" style="margin-top:10px">
         <div class="field"><label>bwin oranı</label>
           <select id="npLine" class="np-ro"><option value="open" selected>Açılış (2004–)</option><option value="close">Kapanış (2019–)</option></select></div>
         <div class="field"><label>Eşleşme</label>
@@ -150,6 +149,7 @@
         <label class="np-check"><input type="checkbox" id="npOU" checked><span><b>2.5 Alt/Üst eşleşmesi</b><small>Gol oranını da benzet</small></span></label>
       </div>
 
+      </details>
       <div id="npMacBox">
         <div class="field" style="margin-top:12px">
           <label>Takım veya maç seç <span class="np-fxinfo" id="npFxInfo"></span></label>

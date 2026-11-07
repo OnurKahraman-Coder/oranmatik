@@ -181,12 +181,12 @@ async function init() {
     applyDeepLink();
     updateBankHint();
     hideSplash();
+    if (!location.search) showTab('panel'); // açılış: sade analiz paneli
     if (meta.web) {
       // web sürümü: veri her gün sunucuda (GitHub Actions) otomatik güncellenir
       ['#btnUpdate', '#mobileCard', '#mobileUpdateCard'].forEach((s) => { const el = $(s); if (el) el.style.display = 'none'; });
       const h = $('#updateHint');
       if (h) h.innerHTML = `Veri her gün otomatik güncellenir. Son derleme: <b>${new Date(meta.builtAt).toLocaleString('tr-TR')}</b>`;
-      if (!location.search) showTab('panel'); // web sürümü 20 maçlık panelle açılır
     } else if (window.LocalAPI) {
       const b = $('#btnUpdate');
       if (b) b.style.display = 'none';
@@ -985,27 +985,7 @@ async function loadMatches(refresh) {
         <td>${canAnalyze(m) ? `<button class="btn ghost sm" data-analyze="${i}">Analiz</button>` : '<span class="hint">eşleşmedi</span>'}</td>
       </tr>`).join('')}</tbody></table></div>`;
 
-    out.querySelectorAll('[data-analyze]').forEach((b) => b.addEventListener('click', () => {
-      const m = items[+b.dataset.analyze];
-      state.home = m.home; state.away = m.away;
-      $('#homeInput').value = state.meta.teams[m.home].n;
-      $('#awayInput').value = state.meta.teams[m.away].n;
-      if (m.status === 'live' && m.hg != null) {
-        const mm = String(m.clock || '').match(/(\d+)/);
-        state.liveMinute = mm ? Number(mm[1]) : 0;
-        state.liveScore = { h: m.hg, a: m.ag };
-      } else {
-        state.liveMinute = null;
-        state.liveScore = null;
-      }
-      if (m.odds && m.odds[0] > 1) {
-        $('#oH').value = m.odds[0]; $('#oD').value = m.odds[1]; $('#oA').value = m.odds[2];
-      } else {
-        ['#oH', '#oD', '#oA'].forEach((s) => ($(s).value = ''));
-      }
-      showTab('analiz');
-      runAnalysis();
-    }));
+    out.querySelectorAll('[data-analyze]').forEach((b) => b.addEventListener('click', () => npFromMatch(items[+b.dataset.analyze])));
   } catch (e) {
     out.innerHTML = `<div class="hint">Hata: ${esc(e.message)}</div>`;
   }
@@ -1931,12 +1911,13 @@ function npRenderList() {
       <div class="od">${od}</div></div>`;
   });
   box.innerHTML = html;
-  box.querySelectorAll('[data-fx]').forEach((el) => el.addEventListener('click', () => npPick(+el.dataset.fx)));
+  box.querySelectorAll('[data-fx]').forEach((el) => el.addEventListener('click', () => npPick(+el.dataset.fx, true)));
 }
 
-function npPick(idx) {
+function npPick(idx, fromUser) {
   const m = NP.fixtures[idx];
   if (!m) return;
+  if (fromUser) NP.live = null;
   NP.picked = { idx, m };
   $('#npPicked').innerHTML = `
     <div style="font-size:12px;color:var(--dim)">${npDateTxt(m.date)} · ${esc(m.time || '')} · ${esc(m.leagueName || m.league)}</div>
@@ -1958,7 +1939,7 @@ function npInput() {
   if (NP.mode === 'mac') {
     if (!NP.picked) throw new Error('Listeden bir maç seç ya da "Oran Gir" sekmesine geç.');
     const m = NP.picked.m;
-    return { h: +$('#npPH').value, d: +$('#npPD').value, a: +$('#npPA').value, o: +$('#npPO').value || 0, u: +$('#npPU').value || 0, homeName: m.homeName, awayName: m.awayName, date: m.date, time: m.time, league: m.leagueName };
+    return { h: +$('#npPH').value, d: +$('#npPD').value, a: +$('#npPA').value, o: +$('#npPO').value || 0, u: +$('#npPU').value || 0, homeName: m.homeName, awayName: m.awayName, home: m.home, away: m.away, date: m.date, time: m.time, league: m.leagueName, live: NP.live || null };
   }
   return { h: +$('#npH').value, d: +$('#npD').value, a: +$('#npA').value, o: +$('#npO').value || 0, u: +$('#npU').value || 0, homeName: $('#npHome').value.trim(), awayName: $('#npAway').value.trim() };
 }
@@ -1985,18 +1966,53 @@ async function npRun() {
 }
 
 function npRender(r, input) {
-  const st = r.stats;
-  const card = (title, c, baseP) => {
+  const st = r.stats, md = r.model;
+  const P = (x) => (x == null || !isFinite(x) ? '—' : '%' + Math.round(x * 100));
+  const home = (md && md.home) || r.input.homeName || 'Ev sahibi';
+  const away = (md && md.away) || r.input.awayName || 'Deplasman';
+  const ou = r.input.o ? ` · Üst ${npO(r.input.o)}${r.input.u ? ` / Alt ${npO(r.input.u)}` : ''}` : '';
+  const live = input && input.live ? `<div class="np-live">CANLI ${esc(input.live.clock || '')} · ${input.live.hg}-${input.live.ag}</div>` : '';
+
+  const card = (title, c, mp, baseP) => {
     const diff = c.p - baseP;
     const cls = diff >= 0.08 ? 'hi' : diff <= -0.08 ? 'lo' : '';
-    return `<div class="np-c"><div class="k">${title}</div><div class="v">%${Math.round(c.p * 100)}</div>
-      <div class="n">${c.k}/${c.n} maç</div><div class="b ${cls}">arşiv geneli %${Math.round(baseP * 100)}</div></div>`;
+    return `<div class="np-c"><div class="k">${title}</div><div class="v">${P(c.p)}</div>
+      <div class="n">${c.k}/${c.n} benzer maç</div>
+      ${mp != null ? `<div class="mdl">model ${P(mp)}</div>` : ''}
+      <div class="b ${cls}">genel ${P(baseP)}</div></div>`;
   };
-  const home = r.input.homeName || 'Ev sahibi', away = r.input.awayName || 'Deplasman';
-  const ou = r.input.o ? ` · 2.5 Üst ${npO(r.input.o)}${r.input.u ? ` / Alt ${npO(r.input.u)}` : ''}` : '';
-  const res = st.res;
-  const htft = st.htft.slice(0, 4).map((x) => `<span class="chip">İY/MS ${esc(x.score)} <b>%${Math.round(x.p * 100)}</b></span>`).join('');
 
+  /* 1-X-2 */
+  const res = st.res;
+  const bar = (lbl, p, m, cls) => `<div class="np-bar3"><span class="l">${lbl}</span>
+      <span class="t"><i class="${cls}" style="width:${Math.round(p * 100)}%"></i></span>
+      <b>${P(p)}</b><span class="m">${m != null ? 'model ' + P(m) : ''}</span></div>`;
+
+  /* İY/MS 9'lu tablo */
+  const maxHF = Math.max(...r.htftAll.map((x) => x.p), 0.01);
+  const hf = r.htftAll.map((x) => `<div class="np-hf${x.p === maxHF && x.p > 0 ? ' top' : ''}">
+      <div class="k">${x.k}</div><div class="v">${P(x.p)}</div><div class="c">${x.count} maç</div>
+      ${x.model != null ? `<div class="m">model ${P(x.model)}</div>` : ''}</div>`).join('');
+
+  /* skor tahmini: benzer maç sıklığı + model olasılığı */
+  const scoreTable = (trend, den, mlist) => {
+    const map = new Map();
+    trend.forEach((x) => map.set(x.score, { s: x.score, c: x.count, p: x.p, m: null }));
+    (mlist || []).forEach((x) => {
+      const e = map.get(x.s) || { s: x.s, c: 0, p: 0, m: null };
+      e.m = x.p; map.set(x.s, e);
+    });
+    const rows = [...map.values()]
+      .map((e) => ({ ...e, sc: mlist ? (e.p + (e.m || 0)) / 2 : e.p }))
+      .sort((x, y) => y.sc - x.sc).slice(0, 6);
+    return rows.map((e, i) => `<div class="np-sr${mlist ? '' : ' one'}${i === 0 ? ' top' : ''}">
+        <span class="sc">${esc(e.s)}</span>
+        <span class="bp">${P(e.p)} <small>${e.c} maç</small></span>
+        ${mlist ? `<span class="mp">${e.m != null ? P(e.m) : '—'}</span>` : ''}</div>`).join('') || '<div class="hint">Veri yok</div>';
+  };
+  const srHead = md ? '<div class="np-sr hd"><span>Skor</span><span>Benzer maçlar</span><span>Model</span></div>' : '<div class="np-sr hd one"><span>Skor</span><span>Benzer maçlar</span></div>';
+
+  /* geçmiş benzer maçlar */
   const tgt = r.input;
   const hit = (v, t) => (Math.abs(v - t) < 0.005 ? ' class="eq"' : '');
   const rows = r.rows.map((x) => `<tr class="${x.rocket ? 'g6' : ''}">
@@ -2005,7 +2021,6 @@ function npRender(r, input) {
       <td>${esc(x.ht || '—')}</td><td class="ms">${esc(x.ft)}</td><td>${esc(x.htft || '—')}</td>
       <td${hit(x.o1, tgt.h)}>${npO(x.o1)}</td><td${hit(x.oX, tgt.d)}>${npO(x.oX)}</td><td${hit(x.o2, tgt.a)}>${npO(x.o2)}</td>
       <td>${npO(x.under25)}</td><td>${npO(x.over25)}</td></tr>`).join('');
-  // telefon: skor önde, kart görünümü
   const cards = r.rows.map((x) => `<div class="np-row${x.rocket ? ' g6' : ''}">
       <div class="np-r1"><span>${npIso(x.date)}</span><span>${esc(x.league)}</span></div>
       <div class="np-r2">
@@ -2016,53 +2031,73 @@ function npRender(r, input) {
       <div class="np-r3"><span${hit(x.o1, tgt.h)}>1 ${npO(x.o1)}</span><span${hit(x.oX, tgt.d)}>X ${npO(x.oX)}</span><span${hit(x.o2, tgt.a)}>2 ${npO(x.o2)}</span><span>A ${npO(x.under25)}</span><span>Ü ${npO(x.over25)}</span></div>
     </div>`).join('');
   const tcol = Store.get('om_np_color') || '';
-
-  const trend = (list, den, zeroRed) => list.slice(0, 8).map((x) => `<div class="np-tr">
-      <span class="d${zeroRed && x.score === '0-0' ? ' z' : ''}"></span><span class="sc">${esc(x.score)}</span>
-      <span class="c">${x.count} maç</span><span class="p">%${Math.round(x.p * 100)}</span></div>`).join('') || '<div class="hint">Veri yok</div>';
-
   const v = r.verdict;
+
   return `
   <div class="card">
-    <div class="lab" style="color:#ff9a3c">bwin analiz</div>
-    <h3 style="margin-top:2px">${r.found} Maçlık İstatistik Paneli <span class="spacer"></span><span class="np-src">bwin</span></h3>
     <div class="np-head"><div class="t">${esc(home)}</div><div class="vs">VS</div><div class="t">${esc(away)}</div></div>
-    <div class="np-oddsline">1 ${npO(r.input.h)} · X ${npO(r.input.d)} · 2 ${npO(r.input.a)}${ou}</div>
+    ${live}
+    <div class="np-oddsline">bwin · 1 ${npO(r.input.h)} · X ${npO(r.input.d)} · 2 ${npO(r.input.a)}${ou}</div>
     <div class="np-verdict ${v.tone}"><span class="k">TAHMİN</span><span class="v">${esc(v.label)}</span>${v.side ? `<span class="s">${esc(v.side)}</span>` : ''}</div>
     <div class="np-cards">
-      ${card('İY 0.5 Üst', st.iy05, r.base.iy05)}
-      ${card('İY 1.5 Üst', st.iy15, r.base.iy15)}
-      ${card('KG Var', st.kg, r.base.kg)}
-      ${card('MS 2.5 Üst', st.o25, r.base.o25)}
-      ${card('MS 3.5 Üst', st.o35, r.base.o35)}
+      ${card('İY 0.5 Üst', st.iy05, md && md.iy05, r.base.iy05)}
+      ${card('İY 1.5 Üst', st.iy15, md && md.iy15, r.base.iy15)}
+      ${card('KG Var', st.kg, md && md.kg, r.base.kg)}
+      ${card('MS 2.5 Üst', st.o25, md && md.o25, r.base.o25)}
+      ${card('MS 3.5 Üst', st.o35, md && md.o35, r.base.o35)}
     </div>
-    <div class="np-mini">
-      <span class="chip">1 <b>%${Math.round(res.h * 100)}</b></span>
-      <span class="chip">X <b>%${Math.round(res.d * 100)}</b></span>
-      <span class="chip">2 <b>%${Math.round(res.a * 100)}</b></span>
-      <span class="chip">Maç başı gol <b>${st.avgGoals.toFixed(2)}</b></span>
-      <span class="chip">6+ gol 🚀 <b>${st.g6.k}/${st.g6.n}</b></span>
-      ${htft}
+  </div>
+
+  <div class="np-two">
+    <div class="card"><h3>Skor Tahmini · İlk Yarı</h3>${srHead}${scoreTable(st.htTrend, st.htN, md && md.htScores)}</div>
+    <div class="card"><h3>Skor Tahmini · Maç Sonu</h3>${srHead}${scoreTable(st.ftTrend, st.n, md && md.ftScores)}</div>
+  </div>
+
+  <div class="np-two">
+    <div class="card"><h3>Maç Sonucu</h3>
+      ${bar('1', res.h, md && md.res.h, 'h')}${bar('X', res.d, md && md.res.d, 'd')}${bar('2', res.a, md && md.res.a, 'a')}
+      <div class="hint" style="margin-top:8px">Maç başı gol: <b>${st.avgGoals.toFixed(2)}</b>${md ? ` · model beklenen gol <b>${md.lambda.home.toFixed(2)} – ${md.lambda.away.toFixed(2)}</b>` : ''} · 6+ gol 🚀 ${st.g6.k}/${st.g6.n}</div>
     </div>
-    ${r.notes.length ? `<div class="hint" style="margin-top:10px">${r.notes.map(esc).join(' ')}</div>` : ''}
+    <div class="card"><h3>İY / MS</h3><div class="np-hfgrid">${hf}</div></div>
   </div>
 
   <div class="card">
-    <h3>Geçmiş Maçlar <span class="spacer"></span>
+    <h3>Geçmiş Benzer Maçlar <span class="spacer"></span>
       <label class="np-color">Tablo rengi <input type="color" id="npColor" value="${tcol || '#ff8c28'}"></label>
       <a href="#" class="np-reset" id="npColorReset">Sıfırla</a></h3>
     <div class="np-cards-list" id="npCardsList" style="${tcol ? `--npc:${tcol}` : ''}">${cards}</div>
     <div class="tbl np-tblwrap" id="npTblWrap" style="${tcol ? `--npc:${tcol}` : ''}"><table class="t np-t">
       <thead><tr><th>Tarih</th><th>Lig</th><th>Maç</th><th>İY</th><th>MS</th><th>İY/MS</th><th>1</th><th>X</th><th>2</th><th>2.5 Alt</th><th>2.5 Üst</th></tr></thead>
       <tbody>${rows}</tbody></table></div>
-    <div class="hint" style="margin-top:8px">Turuncu oran = girdiğin oranla birebir aynı. 🚀 = 6 ve üzeri gol. 1-X-2 sütunları bwin ${r.options.line === 'close' ? 'kapanış' : 'açılış'} oranıdır; 2.5 Alt/Üst bet365 ya da piyasa ortalamasıdır (kaynakta bwin'in gol oranı yok).</div>
+    <div class="hint" style="margin-top:8px">Turuncu oran = girdiğin bwin oranıyla birebir aynı · 🚀 = 6+ gol${r.notes.length ? ' · ' + r.notes.map(esc).join(' ') : ''}</div>
   </div>
+  <div class="hint" style="text-align:center;margin:4px 0 18px">"Benzer maçlar" = aynı bwin oranlı ${r.found} geçmiş maç · "Model" = takımların gol gücü (Poisson) · tahmin değil, istatistik · 18+</div>`;
+}
 
-  <div class="np-trends">
-    <div class="card"><h3>İlk Yarı Skor Trendi</h3>${trend(st.htTrend, st.htN, true)}</div>
-    <div class="card"><h3>Maç Sonu Skor Trendi</h3>${trend(st.ftTrend, st.n, true)}</div>
-  </div>
 
-  <div class="card"><div class="hint">Bu panel <b>tahmin değil</b>, benzer oranlı ${r.found} geçmiş maçın dökümüdür. 20 maç küçük bir örneklem: tek bir maç yüzdeyi 5 puan oynatır.
-    "Arşiv geneli" satırı, aynı istatistiğin 117 bin maçtaki ortalamasıdır; yeşil = belirgin yüksek, mavi = belirgin düşük. Bahis tavsiyesi değildir, 18+.</div></div>`;
+/** Maçlar sekmesinden gelen maçı Analiz paneline taşı (bwin oranı varsa otomatik doldur) */
+async function npFromMatch(m) {
+  showTab('panel');
+  npSetMode('mac');
+  if (!NP.loaded) await npLoadFixtures(false);
+  const tn = (id, nm) => (id != null && id >= 0 && state.meta.teams[id] ? state.meta.teams[id].n : nm || '');
+  let idx = NP.fixtures.findIndex((f) => f.home === m.home && f.away === m.away && f.home >= 0 && Math.abs((f.date || 0) - (m.date || 0)) <= 1);
+  if (idx < 0) {
+    const lg = state.meta.leagues && m.league >= 0 ? state.meta.leagues[m.league] : null;
+    NP.fixtures.unshift({
+      league: lg ? lg.code : '', leagueName: lg ? lg.name : '', date: m.date, time: m.time || '',
+      homeName: tn(m.home, m.homeName), awayName: tn(m.away, m.awayName), home: m.home, away: m.away,
+      h: m.odds && m.odds[0] > 1 ? m.odds[0] : 0, d: m.odds && m.odds[1] > 1 ? m.odds[1] : 0, a: m.odds && m.odds[2] > 1 ? m.odds[2] : 0,
+      hasOdds: !!(m.odds && m.odds[0] > 1),
+    });
+    idx = 0;
+  }
+  const f = NP.fixtures[idx];
+  NP.live = m.status === 'live' && m.hg != null ? { clock: m.clock, hg: m.hg, ag: m.ag } : null;
+  $('#npSearch').value = '';
+  npPick(idx);
+  if (!f.hasOdds) {
+    $('#npOut').innerHTML = '<div class="card"><div class="hint">Bu maç için bwin oranı listede yok. Yukarıdaki kutulara bwin\'deki 1-X-2 oranlarını yazıp <b>Analiz Et</b>\'e bas.</div></div>';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
