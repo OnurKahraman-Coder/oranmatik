@@ -1,0 +1,1842 @@
+{
+ "0405|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 51227
+ },
+ "0405|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 66664
+ },
+ "0405|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 46025
+ },
+ "0405|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 85912
+ },
+ "0405|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 124347
+ },
+ "0405|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 121764
+ },
+ "0405|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 65249
+ },
+ "0405|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 59453
+ },
+ "0405|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 34432
+ },
+ "0405|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 53467
+ },
+ "0405|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 50154
+ },
+ "0405|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 49316
+ },
+ "0405|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 28759
+ },
+ "0405|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 73451
+ },
+ "0405|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 80596
+ },
+ "0405|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 50251
+ },
+ "0506|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 70631
+ },
+ "0506|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 79148
+ },
+ "0506|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 70036
+ },
+ "0506|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 102129
+ },
+ "0506|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 148522
+ },
+ "0506|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 150556
+ },
+ "0506|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 93075
+ },
+ "0506|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 86575
+ },
+ "0506|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 53333
+ },
+ "0506|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 70890
+ },
+ "0506|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 71068
+ },
+ "0506|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 61746
+ },
+ "0506|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 42205
+ },
+ "0506|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 98942
+ },
+ "0506|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 106881
+ },
+ "0506|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 71898
+ },
+ "0607|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 70835
+ },
+ "0607|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 80296
+ },
+ "0607|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 78734
+ },
+ "0607|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 102043
+ },
+ "0607|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 149034
+ },
+ "0607|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 150795
+ },
+ "0607|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 95042
+ },
+ "0607|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 86867
+ },
+ "0607|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 53365
+ },
+ "0607|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 70620
+ },
+ "0607|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 54981
+ },
+ "0607|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 61800
+ },
+ "0607|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 42303
+ },
+ "0607|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 98966
+ },
+ "0607|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 106952
+ },
+ "0607|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 73061
+ },
+ "0708|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 74256
+ },
+ "0708|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 83700
+ },
+ "0708|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 74257
+ },
+ "0708|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 105683
+ },
+ "0708|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 155608
+ },
+ "0708|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 156110
+ },
+ "0708|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 100311
+ },
+ "0708|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 90458
+ },
+ "0708|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 56791
+ },
+ "0708|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 73924
+ },
+ "0708|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 57131
+ },
+ "0708|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 63791
+ },
+ "0708|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 44118
+ },
+ "0708|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 102708
+ },
+ "0708|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 109202
+ },
+ "0708|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 74803
+ },
+ "0809|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 75010
+ },
+ "0809|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 84127
+ },
+ "0809|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 76463
+ },
+ "0809|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 106205
+ },
+ "0809|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 157327
+ },
+ "0809|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 157329
+ },
+ "0809|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 101205
+ },
+ "0809|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 90755
+ },
+ "0809|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 57760
+ },
+ "0809|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 75137
+ },
+ "0809|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 57727
+ },
+ "0809|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 64042
+ },
+ "0809|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 45153
+ },
+ "0809|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 103886
+ },
+ "0809|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 109890
+ },
+ "0809|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 75624
+ },
+ "0910|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 51513
+ },
+ "0910|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 83642
+ },
+ "0910|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 76222
+ },
+ "0910|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 105752
+ },
+ "0910|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 156865
+ },
+ "0910|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 156094
+ },
+ "0910|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 100639
+ },
+ "0910|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 90291
+ },
+ "0910|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 57324
+ },
+ "0910|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 74586
+ },
+ "0910|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 57214
+ },
+ "0910|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 64377
+ },
+ "0910|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 44571
+ },
+ "0910|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 103465
+ },
+ "0910|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 110544
+ },
+ "0910|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 67999
+ },
+ "1011|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 59347
+ },
+ "1011|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 84990
+ },
+ "1011|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 76806
+ },
+ "1011|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 106586
+ },
+ "1011|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 156897
+ },
+ "1011|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 158132
+ },
+ "1011|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 100690
+ },
+ "1011|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 90379
+ },
+ "1011|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 58487
+ },
+ "1011|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 75711
+ },
+ "1011|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 58916
+ },
+ "1011|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 64409
+ },
+ "1011|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 45100
+ },
+ "1011|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 103698
+ },
+ "1011|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 112527
+ },
+ "1011|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 76872
+ },
+ "1112|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 59963
+ },
+ "1112|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 85125
+ },
+ "1112|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 77873
+ },
+ "1112|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 106303
+ },
+ "1112|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 157101
+ },
+ "1112|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 158158
+ },
+ "1112|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 102658
+ },
+ "1112|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 90233
+ },
+ "1112|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 57778
+ },
+ "1112|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 75217
+ },
+ "1112|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 58646
+ },
+ "1112|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 65019
+ },
+ "1112|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 44663
+ },
+ "1112|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 103976
+ },
+ "1112|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 115054
+ },
+ "1112|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 77233
+ },
+ "1213|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 63496
+ },
+ "1213|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 89983
+ },
+ "1213|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 81639
+ },
+ "1213|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 113085
+ },
+ "1213|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 160814
+ },
+ "1213|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 161290
+ },
+ "1213|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 110069
+ },
+ "1213|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 97015
+ },
+ "1213|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 60735
+ },
+ "1213|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 79618
+ },
+ "1213|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 62627
+ },
+ "1213|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 66786
+ },
+ "1213|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 47964
+ },
+ "1213|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 110545
+ },
+ "1213|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 122149
+ },
+ "1213|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 82692
+ },
+ "1314|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 57445
+ },
+ "1314|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 81743
+ },
+ "1314|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 74306
+ },
+ "1314|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 103642
+ },
+ "1314|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 151727
+ },
+ "1314|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 153271
+ },
+ "1314|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 100450
+ },
+ "1314|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 87894
+ },
+ "1314|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 71347
+ },
+ "1314|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 72686
+ },
+ "1314|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 56795
+ },
+ "1314|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 63259
+ },
+ "1314|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 43079
+ },
+ "1314|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 100250
+ },
+ "1314|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 110653
+ },
+ "1314|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 74698
+ },
+ "1415|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 56065
+ },
+ "1415|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 79193
+ },
+ "1415|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 72300
+ },
+ "1415|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 100899
+ },
+ "1415|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 147773
+ },
+ "1415|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 149432
+ },
+ "1415|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 96761
+ },
+ "1415|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 85476
+ },
+ "1415|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 67908
+ },
+ "1415|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 70440
+ },
+ "1415|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 70174
+ },
+ "1415|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 61399
+ },
+ "1415|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 41777
+ },
+ "1415|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 97117
+ },
+ "1415|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 106268
+ },
+ "1415|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 72285
+ },
+ "1516|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 55171
+ },
+ "1516|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 78179
+ },
+ "1516|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 71042
+ },
+ "1516|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 100656
+ },
+ "1516|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 145556
+ },
+ "1516|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 145718
+ },
+ "1516|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 95146
+ },
+ "1516|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 84877
+ },
+ "1516|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 55025
+ },
+ "1516|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 69113
+ },
+ "1516|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 68971
+ },
+ "1516|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 60523
+ },
+ "1516|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 40642
+ },
+ "1516|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 96043
+ },
+ "1516|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 104214
+ },
+ "1516|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 71621
+ },
+ "1617|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 54442
+ },
+ "1617|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 78466
+ },
+ "1617|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 71481
+ },
+ "1617|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 99990
+ },
+ "1617|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 146364
+ },
+ "1617|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 147752
+ },
+ "1617|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 94928
+ },
+ "1617|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 84654
+ },
+ "1617|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 53266
+ },
+ "1617|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 69567
+ },
+ "1617|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 68735
+ },
+ "1617|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 60431
+ },
+ "1617|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 41620
+ },
+ "1617|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 96225
+ },
+ "1617|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 103750
+ },
+ "1617|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 70825
+ },
+ "1718|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 61341
+ },
+ "1718|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 78641
+ },
+ "1718|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 80130
+ },
+ "1718|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 100734
+ },
+ "1718|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 146865
+ },
+ "1718|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 147850
+ },
+ "1718|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 95353
+ },
+ "1718|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 96821
+ },
+ "1718|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 59522
+ },
+ "1718|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 77802
+ },
+ "1718|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 77337
+ },
+ "1718|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 60384
+ },
+ "1718|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 35863
+ },
+ "1718|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 96801
+ },
+ "1718|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 117387
+ },
+ "1718|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 79062
+ },
+ "1819|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 58925
+ },
+ "1819|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 75587
+ },
+ "1819|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 75832
+ },
+ "1819|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 96144
+ },
+ "1819|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 140915
+ },
+ "1819|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 141433
+ },
+ "1819|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 91888
+ },
+ "1819|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 91815
+ },
+ "1819|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 57786
+ },
+ "1819|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 75168
+ },
+ "1819|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 74751
+ },
+ "1819|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 58290
+ },
+ "1819|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 45984
+ },
+ "1819|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 92914
+ },
+ "1819|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 110019
+ },
+ "1819|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 76512
+ },
+ "1920|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 104897
+ },
+ "1920|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 138965
+ },
+ "1920|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 139025
+ },
+ "1920|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 175475
+ },
+ "1920|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 254740
+ },
+ "1920|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 184870
+ },
+ "1920|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 125011
+ },
+ "1920|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 125737
+ },
+ "1920|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 107420
+ },
+ "1920|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 105545
+ },
+ "1920|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 138631
+ },
+ "1920|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 82811
+ },
+ "1920|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 63667
+ },
+ "1920|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 99615
+ },
+ "1920|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 128264
+ },
+ "1920|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 135899
+ },
+ "2021|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 138909
+ },
+ "2021|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 140043
+ },
+ "2021|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 175815
+ },
+ "2021|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 255966
+ },
+ "2021|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 255775
+ },
+ "2021|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 170539
+ },
+ "2021|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 170365
+ },
+ "2021|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 107072
+ },
+ "2021|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 138587
+ },
+ "2021|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 139013
+ },
+ "2021|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 105286
+ },
+ "2021|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 62528
+ },
+ "2021|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 171721
+ },
+ "2021|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 207328
+ },
+ "2021|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 191916
+ },
+ "2122|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 138528
+ },
+ "2122|D1": {
+  "ok": false,
+  "error": "HTTP 404",
+  "ts": "20240612001654"
+ },
+ "2021|D1": {
+  "ok": false,
+  "error": "HTTP 404",
+  "ts": "20240611203442"
+ },
+ "2122|D2": {
+  "ok": false,
+  "error": "HTTP 404",
+  "ts": "20240611212854"
+ },
+ "2122|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 175360
+ },
+ "2122|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 255881
+ },
+ "2122|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 256198
+ },
+ "2122|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 171274
+ },
+ "2122|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 170624
+ },
+ "2122|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 107981
+ },
+ "2122|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 138801
+ },
+ "2122|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 139055
+ },
+ "2122|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 105588
+ },
+ "2122|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 83674
+ },
+ "2122|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 172174
+ },
+ "2122|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 207787
+ },
+ "2122|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 173920
+ },
+ "2223|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 135378
+ },
+ "2223|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 139302
+ },
+ "2223|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 140871
+ },
+ "2223|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 176180
+ },
+ "2223|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 255779
+ },
+ "2223|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 255895
+ },
+ "2223|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 171165
+ },
+ "2223|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 169782
+ },
+ "2223|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 108399
+ },
+ "2223|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 139065
+ },
+ "2223|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 139035
+ },
+ "2223|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 105939
+ },
+ "2223|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 83969
+ },
+ "2223|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 172199
+ },
+ "2223|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 202621
+ },
+ "2223|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 147535
+ },
+ "2324|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 136827
+ },
+ "2324|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 172196
+ },
+ "2324|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 251182
+ },
+ "2324|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 250001
+ },
+ "2324|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 135000
+ },
+ "2324|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 167269
+ },
+ "2324|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 105713
+ },
+ "2324|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 135643
+ },
+ "2324|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 135008
+ },
+ "2324|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 103688
+ },
+ "2324|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 81995
+ },
+ "2324|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 168164
+ },
+ "2324|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 199754
+ },
+ "2324|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 169459
+ },
+ "2425|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 158659
+ },
+ "2425|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 156414
+ },
+ "2425|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 157178
+ },
+ "2425|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 197110
+ },
+ "2425|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 286983
+ },
+ "2425|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 286638
+ },
+ "2425|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 154703
+ },
+ "2425|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 155252
+ },
+ "2425|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 117759
+ },
+ "2425|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 155460
+ },
+ "2425|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 83440
+ },
+ "2425|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 118635
+ },
+ "2425|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 93788
+ },
+ "2425|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 192863
+ },
+ "2425|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 230032
+ },
+ "2425|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 173297
+ },
+ "2526|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 158888
+ },
+ "2526|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 159944
+ },
+ "2526|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 157989
+ },
+ "2526|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 203438
+ },
+ "2526|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 294390
+ },
+ "2526|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 288636
+ },
+ "2526|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 158471
+ },
+ "2526|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 134345
+ },
+ "2526|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 96345
+ },
+ "2526|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 158364
+ },
+ "2526|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 123166
+ },
+ "2526|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 95285
+ },
+ "2526|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 84469
+ },
+ "2526|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 197653
+ },
+ "2526|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 237701
+ },
+ "2526|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 158392
+ },
+ "2627|B1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 34786
+ },
+ "2627|D1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 26278
+ },
+ "2627|D2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 30780
+ },
+ "2627|E0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 39368
+ },
+ "2627|E1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 64638
+ },
+ "2627|E2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 50464
+ },
+ "2627|F1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 34596
+ },
+ "2627|F2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 34535
+ },
+ "2627|G1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 26437
+ },
+ "2627|N1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 42856
+ },
+ "2627|P1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 4885
+ },
+ "2627|SC0": {
+  "ok": true,
+  "cached": true,
+  "bytes": 23875
+ },
+ "2627|SC1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 23658
+ },
+ "2627|SP1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 42704
+ },
+ "2627|SP2": {
+  "ok": true,
+  "cached": true,
+  "bytes": 41538
+ },
+ "2627|T1": {
+  "ok": true,
+  "cached": true,
+  "bytes": 30336
+ },
+ "2324|D1": {
+  "ok": false,
+  "error": "HTTP 404",
+  "ts": "20240611212420"
+ },
+ "2324|D2": {
+  "ok": false,
+  "error": "HTTP 404",
+  "ts": "20240613173152"
+ }
+}

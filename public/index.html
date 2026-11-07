@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0e14">
+<title>OranMatik — Oran Analiz Sistemi</title>
+<link rel="stylesheet" href="style.css?v=22">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+
+<div id="splash">
+  <div class="sp-mark">Ø</div>
+  <div class="sp-title">ORANMATİK</div>
+  <div class="sp-sub" id="splashMsg">veri yükleniyor…</div>
+</div>
+
+<header class="top">
+  <div class="top-in">
+    <div class="logo">
+      <div class="mark">Ø</div>
+      <div>ORANMATİK <small>KİŞİSEL SİSTEM</small></div>
+    </div>
+    <div class="top-spacer"></div>
+    <div class="badge" id="badgeData"><span class="dot off"></span> veri yükleniyor…</div>
+    <div class="badge" id="badgeRange">—</div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button class="tab on" data-view="analiz">Analiz</button>
+    <button class="tab" data-view="panel">20 Maç</button>
+    <button class="tab" data-view="maclar">Maçlar</button>
+    <button class="tab" data-view="tablolar">Tablolar</button>
+    <button class="tab" data-view="basarim">Başarım</button>
+    <button class="tab" data-view="hesap">Hesap</button>
+    <button class="tab" data-view="kupon">Kupon</button>
+    <button class="tab" data-view="veri">Veri</button>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= ANALİZ ================= -->
+  <section class="view on" id="v-analiz">
+
+    <div class="card">
+      <h3>Maç &amp; Oranlar <span class="spacer"></span><span class="hint" id="leagueHint"></span></h3>
+
+      <div class="picker">
+        <div class="field"><label>Lig</label><select id="pickLeague"><option value="-1">Tüm ligler</option></select></div>
+        <div class="field"><label>Liste</label>
+          <select id="pickMode">
+            <option value="recent">Biten maçlar</option>
+            <option value="bulletin">Günün bülteni</option>
+            <option value="live">Canlı / yaklaşan</option>
+            
+            <option value="all">Tümü</option>
+          </select>
+        </div>
+        <div class="field pick-wide"><label>Maç seç (elle oran girmek zorunda değilsin)</label><select id="pickMatch"><option value="">— maç seç —</option></select></div>
+      </div>
+
+      <div class="grid g2" style="margin-bottom:14px" id="manualTeams">
+        <div class="field ac" id="acHome">
+          <label>Ev Sahibi</label>
+          <input type="text" id="homeInput" placeholder="Takım ara… (örn. Galatasaray)" autocomplete="off">
+          <div class="ac-list" id="homeList"></div>
+        </div>
+        <div class="field ac" id="acAway">
+          <label>Deplasman</label>
+          <input type="text" id="awayInput" placeholder="Takım ara… (örn. Fenerbahce)" autocomplete="off">
+          <div class="ac-list" id="awayList"></div>
+        </div>
+      </div>
+
+      <div class="odds3">
+        <div class="field"><label>1 · Ev Sahibi</label><input type="number" id="oH" step="0.01" min="1" placeholder="ör. 2.10" class="o1"></div>
+        <div class="field"><label>X · Beraberlik</label><input type="number" id="oD" step="0.01" min="1" placeholder="ör. 3.30" class="oX"></div>
+        <div class="field"><label>2 · Deplasman</label><input type="number" id="oA" step="0.01" min="1" placeholder="ör. 3.40" class="o2"></div>
+      </div>
+
+      <div class="hint" style="margin:8px 0 12px">bwin'deki 1-X-2 oranlarını yaz (bütün eşleşmeler bwin oranlarıyla yapılır). Takım seçmezsen sadece oran geçmişi çalışır.</div>
+
+      <details class="settingsbox">
+        <summary>Ek oranlar, konsensüs ağırlıkları ve ayarlar</summary>
+        <div class="settings" style="margin-bottom:12px">
+          <div class="field"><label>Üst 2.5</label><input type="number" id="ouOver" step="0.01" min="1" placeholder="opsiyonel"></div>
+          <div class="field"><label>Alt 2.5</label><input type="number" id="ouUnder" step="0.01" min="1" placeholder="opsiyonel"></div>
+          <div class="field"><label>KG Var</label><input type="number" id="bttsYes" step="0.01" min="1" placeholder="opsiyonel"></div>
+          <div class="field"><label>KG Yok</label><input type="number" id="bttsNo" step="0.01" min="1" placeholder="opsiyonel"></div>
+        </div>
+        <div class="settings">
+          <div class="field"><label>Lig kapsamı</label><select id="selLeague"><option value="auto">Otomatik (maçın ligi)</option><option value="all">Tüm ligler</option></select></div>
+          <div class="field"><label>Başlangıç sezonu</label><select id="selFrom"></select></div>
+          <div class="field"><label>Bitiş sezonu</label><select id="selTo"></select></div>
+          <div class="field"><label>Eşleşme modu</label><select id="selMode"><option value="near">Yakın oran (önerilen)</option><option value="exact">Birebir aynı oran</option></select></div>
+        </div>
+        <div class="grid g3" style="margin-top:14px">
+          <div class="field"><label>Piyasa ağırlığı: <b id="wMVal">45%</b></label><input type="range" id="wMarket" min="0" max="100" step="5" value="45"></div>
+          <div class="field"><label>Model ağırlığı: <b id="wModVal">35%</b></label><input type="range" id="wModel" min="0" max="100" step="5" value="35"></div>
+          <div class="field"><label>Tarihsel ağırlığı: <b id="wHVal">20%</b></label><input type="range" id="wHistory" min="0" max="100" step="5" value="20"></div>
+        </div>
+        <div class="field" style="margin-top:14px">
+          <label>Tolerans: <b id="tolVal">0.020</b> <span class="hint">(küçük = daha benzer oran, daha az örnek)</span></label>
+          <input type="range" id="tolRange" min="0.005" max="0.120" step="0.005" value="0.02" style="width:100%">
+        </div>
+      </details>
+
+      <div class="row spread" style="margin-top:14px">
+        <div class="row" style="gap:8px">
+          <button class="btn" id="btnAnalyze">Analiz Et</button>
+          <button class="btn ghost sm" id="btnSaveAnalysis">Analizi Kaydet</button>
+        </div>
+        <button class="btn ghost sm" id="btnClear">Temizle</button>
+      </div>
+      <div id="savedList" class="row wrap" style="margin-top:10px;gap:6px"></div>
+    </div>
+
+    <div id="results"></div>
+    <div id="emptyState" class="card">
+      <div class="empty">
+        <div class="big">📊</div>
+        <div style="font-size:15px;color:var(--muted)">Oranları gir ve <b>Analiz Et</b>'e bas.</div>
+        <div class="hint" style="margin-top:6px">Takım seçmezsen sadece oran geçmişi çalışır. Takım seçersen gol modeli, form ve H2H de devreye girer.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 20 MAÇLIK PANEL (bwin) ================= -->
+  <section class="view" id="v-panel">
+    <div class="card">
+      <h3>20 Maçlık İstatistik Paneli <span class="spacer"></span><span class="np-src">bwin</span></h3>
+      <div class="hint" style="margin:-4px 0 14px">Oranları kendin gir ya da listeden maç seç. Sistem bu bwin oranlarına en yakın geçmiş maçları bulur ve nasıl bittiklerini gösterir.</div>
+
+      <div class="np-seg" id="npSeg">
+        <button data-np="oran">Oran Gir</button>
+        <button data-np="mac" class="on">Maç Seç</button>
+      </div>
+
+      <div class="np-opts">
+        <div class="field"><label>bwin oranı</label>
+          <select id="npLine" class="np-ro"><option value="open" selected>Açılış (2004–)</option><option value="close">Kapanış (2019–)</option></select></div>
+        <div class="field"><label>Benzer maç sayısı</label>
+          <select id="npCount"><option>10</option><option selected>20</option><option>30</option><option>50</option></select></div>
+        <label class="np-check"><input type="checkbox" id="npLow"><span><b>Lig filtresi</b><small>Düşük skorlu ligleri hariç tut</small></span></label>
+        <label class="np-check"><input type="checkbox" id="npOU" checked><span><b>2.5 Alt/Üst eşleşmesi</b><small>Gol oranını da benzet</small></span></label>
+      </div>
+
+      <div id="npMacBox">
+        <div class="field" style="margin-top:12px">
+          <label>Takım veya maç seç <span class="np-fxinfo" id="npFxInfo"></span></label>
+          <div class="row" style="gap:8px">
+            <input type="text" id="npSearch" placeholder="Takım ara… (örn. Galatasaray)" autocomplete="off" style="flex:1">
+            <button class="btn ghost sm" id="npFxRefresh" title="Listeyi yenile">↻</button>
+          </div>
+          <div class="np-fxlist" id="npFxList"></div>
+        </div>
+        <div class="np-picked" id="npPicked"></div>
+      </div>
+
+      <div id="npOranBox" style="display:none;margin-top:12px">
+        <div class="grid g2" style="margin-bottom:10px">
+          <div class="field"><label>Ev sahibi (isteğe bağlı)</label><input type="text" id="npHome" placeholder="örn. Galatasaray"></div>
+          <div class="field"><label>Deplasman (isteğe bağlı)</label><input type="text" id="npAway" placeholder="örn. Amedspor"></div>
+        </div>
+        <div class="np-odds">
+          <div class="field"><label>1</label><input type="number" id="npH" step="0.01" min="1" placeholder="1.43" class="o1"></div>
+          <div class="field"><label>X</label><input type="number" id="npD" step="0.01" min="1" placeholder="5.00" class="oX"></div>
+          <div class="field"><label>2</label><input type="number" id="npA" step="0.01" min="1" placeholder="6.00" class="o2"></div>
+          <div class="field"><label>2.5 Üst</label><input type="number" id="npO" step="0.01" min="1" placeholder="1.41"></div>
+          <div class="field"><label>2.5 Alt</label><input type="number" id="npU" step="0.01" min="1" placeholder="2.65"></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:16px"><button class="btn np-go" id="npGo">Analiz Et</button></div>
+    </div>
+
+    <div id="npOut"></div>
+  </section>
+
+  <!-- ================= MAÇLAR ================= -->
+  <section class="view" id="v-maclar">
+    <div class="card">
+      <h3>Maç Listesi <span class="spacer"></span><span class="hint" id="matchCount"></span></h3>
+      <div class="settings" style="margin-bottom:12px">
+        <div class="field"><label>Lig</label><select id="mLeague"><option value="-1">Tüm ligler</option></select></div>
+        <div class="field"><label>Liste</label><select id="mMode"><option value="bulletin" selected>Günün bülteni</option><option value="live">Canlı / yaklaşan</option><option value="recent">Sonuçlananlar</option><option value="all">Tümü</option></select></div>
+        <div class="field"><label>Adet</label><select id="mLimit"><option>25</option><option selected>50</option><option>100</option></select></div>
+        <div class="field"><label>&nbsp;</label><button class="btn" id="btnLoadMatches">Listele</button></div>
+      </div>
+      <div class="hint" style="margin-bottom:10px">Canlı skorlar <b>ESPN</b>'den gelir (ücretsiz, anahtarsız), 2 dakika önbelleklenir.
+        <b>Analiz</b> düğmesi takımları Analiz sekmesine taşır; oranı bwin'den elle girersin.</div>
+      <div id="matchOut"></div>
+    </div>
+  </section>
+
+  <!-- ================= TABLOLAR ================= -->
+  <section class="view" id="v-tablolar">
+    <div class="card">
+      <h3>Puan Durumu</h3>
+      <div class="settings" style="margin-bottom:12px">
+        <div class="field"><label>Lig</label><select id="tLeague"></select></div>
+        <div class="field"><label>Sezon</label><select id="tSeason"></select></div>
+        <div class="field"><label>&nbsp;</label><button class="btn" id="btnLoadTable">Getir</button></div>
+      </div>
+      <div id="tableOut"></div>
+    </div>
+  </section>
+
+  <!-- ================= BAŞARIM ================= -->
+  <section class="view" id="v-basarim">
+    <div class="card">
+      <h3>Model Doğrulama (Walk-FORWARD Test)</h3>
+      <div class="settings" style="margin-bottom:12px">
+        <div class="field"><label>Lig</label><select id="btLeague"></select></div>
+        <div class="field"><label>Başlangıç sezonu</label><select id="btFrom"></select></div>
+        <div class="field"><label>Bitiş sezonu</label><select id="btTo"></select></div>
+        <div class="field"><label>&nbsp;</label><button class="btn" id="btnBacktest">Testi Çalıştır</button></div>
+      </div>
+      <div class="hint">Model yalnızca o maçtan <b>önceki</b> verilerle eğitilir, her ay yeniden fit edilir. Yani gerçek bir "geleceği tahmin" testidir; veri sızıntısı yoktur.</div>
+      <div id="btOut" style="margin-top:14px"></div>
+    </div>
+  </section>
+
+  <!-- ================= HESAP ================= -->
+  <section class="view" id="v-hesap">
+    <div class="grid g2">
+      <div class="card">
+        <h3>Piyasa Olasılıkları</h3>
+        <div class="odds3" style="margin-bottom:12px">
+          <div class="field"><label>1</label><input type="number" id="cH" step="0.01" min="1" value="2.10" class="o1"></div>
+          <div class="field"><label>X</label><input type="number" id="cD" step="0.01" min="1" value="3.30" class="oX"></div>
+          <div class="field"><label>2</label><input type="number" id="cA" step="0.01" min="1" value="3.40" class="o2"></div>
+        </div>
+        <div id="calcOut"></div>
+      </div>
+      <div class="card">
+        <h3>Kelly Stake</h3>
+        <div class="settings" style="margin-bottom:12px">
+          <div class="field"><label>Oran</label><input type="number" id="kOdds" step="0.01" min="1.01" value="2.10"></div>
+          <div class="field"><label>Tahmin %</label><input type="number" id="kProb" step="0.1" min="0" max="100" value="55"></div>
+        </div>
+        <div class="field" style="margin-bottom:12px"><label>Banka (₺)</label><input type="number" id="kBank" step="1" min="0" value="1000"></div>
+        <div id="kellyOut"></div>
+        <div class="hint" style="margin-top:10px">Yarım Kelly dalgalanmayı azaltır. Tam Kelly uzun vadede maksimum büyüme verir ama drawdown büyüktür.</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Bankroll Planı</h3>
+      <div class="settings">
+        <div class="field"><label>Banka (₺)</label><input type="number" id="brBank" step="1" min="0" value="1000"></div>
+        <div class="field"><label>Birim (%)</label><input type="number" id="brUnit" step="0.5" min="0.1" max="20" value="2"></div>
+        <div class="field"><label>Oran</label><input type="number" id="brOdds" step="0.01" min="1.01" value="2.00"></div>
+        <div class="field"><label>&nbsp;</label><button class="btn ghost" id="btnApplyBank">Uygula</button></div>
+      </div>
+      <div class="row" style="margin-top:12px;gap:10px;align-items:flex-end;flex-wrap:wrap">
+        <div class="field" style="max-width:220px">
+          <label>Analizlerde kullanılacak banka (₺)</label>
+          <input type="number" id="bankMain" step="1" min="0" placeholder="örn. 5000">
+        </div>
+        <button class="btn" id="btnSaveBank">Kaydet</button>
+        <span class="hint" id="bankHint"></span>
+      </div>
+      <div id="brOut" style="margin-top:14px"></div>
+    </div>
+  </section>
+
+  <!-- ================= KUPON ================= -->
+  <section class="view" id="v-kupon">
+    <div class="card">
+      <h3>Kupon Ekle</h3>
+      <div class="settings" style="margin-bottom:12px">
+        <div class="field"><label>Maç</label><input type="text" id="betMatch" placeholder="Galatasaray - Fenerbahce"></div>
+        <div class="field"><label>Tercih</label><input type="text" id="betPick" placeholder="1 / X / 2 / Üst 2.5"></div>
+        <div class="field"><label>Oran</label><input type="number" id="betOdds" step="0.01" min="1.01" placeholder="2.10"></div>
+        <div class="field"><label>Miktar (₺)</label><input type="number" id="betStake" step="1" min="1" placeholder="100"></div>
+      </div>
+      <div class="row wrap" style="margin-bottom:8px">
+        <select id="betResult" style="max-width:180px"><option value="pending">Bekliyor</option><option value="win">Kazandı</option><option value="lose">Kaybetti</option><option value="void">İade</option></select>
+        <button class="btn" id="btnBetAdd">Ekle</button>
+        <span class="spacer" style="flex:1"></span>
+        <button class="btn ghost sm" id="btnBetSettle">Sonuçları denetle</button>
+        <button class="btn ghost sm" id="btnBetExport">CSV indir</button>
+        <button class="btn ghost sm" id="btnBetImport">CSV içe al</button>
+        <input type="file" id="betFile" accept=".csv" style="display:none">
+      </div>
+      <div id="betStats" style="margin-top:16px"></div>
+      <div id="betChart" style="margin-top:14px"></div>
+      <div id="betList" style="margin-top:14px"></div>
+    </div>
+  </section>
+
+  <!-- ================= VERİ ================= -->
+  <section class="view" id="v-veri">
+    <div class="grid g2">
+      <div class="card">
+        <h3>Veri Seti</h3>
+        <div id="dataInfo"></div>
+        <div class="row" style="margin-top:14px">
+          <button class="btn" id="btnUpdate">Veriyi Güncelle</button>
+          <span class="hint" id="updateHint">Arşivden yeni sezon verilerini indirir (birkaç dakika).</span>
+        </div>
+        <pre id="updateLog" class="logbox" style="display:none"></pre>
+
+        <div class="row" style="margin-top:14px;gap:10px;flex-wrap:wrap">
+          <button class="btn ghost" id="btnTestLive">Canlı veriyi test et</button>
+          <span class="hint">ESPN erişimi ve son hata mesajını gösterir.</span>
+        </div>
+        <pre id="liveTestOut" class="logbox" style="display:none"></pre>
+      </div>
+      <div class="card">
+        <h3>Lig Kapsamı</h3>
+        <div id="dataLeagues" style="max-height:520px;overflow:auto"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px" id="mobileCard">
+      <h3>Mobil Uygulama</h3>
+      <div class="hint" style="margin-bottom:12px">
+        Android APK — 2 MB, çevrimdışı çalışır. İnternet izni yalnızca veri güncellemesi içindir.
+        Telefondan bu sayfayı açıp indirebilirsin.
+      </div>
+      <div class="row wrap" style="gap:10px">
+        <a class="btn" href="OranMatik.apk" download>APK indir</a>
+        <span class="hint" id="apkUrlHint">Telefonda: <b>http://&lt;bilgisayar-IP&gt;:5178/OranMatik.apk</b></span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;display:none" id="mobileUpdateCard">
+      <h3>Veri Güncelleme</h3>
+      <div class="hint" style="margin-bottom:12px">
+        İki yol var: <b>PC</b> (aynı Wi-Fi, baslat.cmd açık) ya da <b>bulut linki</b> (PC gerekmez).
+      </div>
+      <div class="settings">
+        <div class="field">
+          <label>Adres</label>
+          <input type="text" id="srvUrl" placeholder="http://192.168.1.20:5178  veya  https://…/db.json">
+        </div>
+        <div class="field"><label>&nbsp;</label><button class="btn" id="btnMobileUpdate">Veriyi Güncelle</button></div>
+      </div>
+      <div id="mobileUpdateStatus" class="hint" style="margin-top:10px"></div>
+      <details style="margin-top:14px">
+        <summary class="hint" style="cursor:pointer;font-weight:700">Bulut linki nasıl alınır? (PC olmadan güncelleme)</summary>
+        <div class="hint" style="margin-top:10px;line-height:1.8">
+          1. Bilgisayarda bir kez: <b>github.com</b> → yeni <b>public</b> repo → <code>data/db.json</code> dosyasını yükle<br>
+          2. Dosyayı aç → <b>Raw</b> düğmesine bas → adres çubuğundaki linki kopyala<br>
+          3. Telefonda yukarıdaki kutuya yapıştır → <b>Veriyi Güncelle</b><br>
+          <span style="color:var(--muted)">Not: Google Drive CORS izni vermediği için çalışmaz; GitHub / Gist kullan.</span>
+        </div>
+      </details>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>Nasıl Çalışır?</h3>
+      <div class="hint" style="line-height:1.75;font-size:13.5px">
+        <p><b style="color:var(--text)">1. Tarihsel oran eşleşmesi.</b> Girdiğin 1-X-2 oranı, veritabanındaki tüm maçların oranlarıyla karşılaştırılır.
+        Karşılaştırma ham oran üzerinden değil, <i>marjı temizlenmiş piyasa olasılığı</i> üzerinden yapılır; böylece farklı marj seviyelerindeki
+        maçlar da doğru eşleşir. Eşleşen maçların gerçek sonuçları yüzde olarak gösterilir.</p>
+        <p><b style="color:var(--text)">2. Gol modeli (Poisson / Dixon-Coles).</b> Takımların hücum ve savunma gücü, zaman ağırlıklı
+        maksimum olabilirlik ile hesaplanır. Ev sahibi avantajı ayrı parametredir, düşük skorlar için Dixon-Coles düzeltmesi uygulanır.
+        Sonuçta 0-0'dan 9-9'a bir skor matrisi ve tüm marketler çıkar.</p>
+        <p><b style="color:var(--text)">3. Piyasa olasılıkları.</b> Oranların içindeki marj (overround) oransal ve logaritmik yöntemlerle
+        temizlenir; adil oran = 1 / piyasa olasılığı.</p>
+        <p><b style="color:var(--text)">4. Değer (EV).</b> EV = model% × oran − 1. Pozitif EV uzun vadede kârlı bahsin işaretidir; garanti değildir.
+        <b>Başarım</b> sekmesi bu iddiayı gerçek geçmiş veriyle test eder.</p>
+        <p><b style="color:var(--draw)">Uyarı:</b> Yalnızca kişisel analiz içindir. Hiçbir model geleceği kesin bilemez.
+        Bahis bağımlılık yapabilir; kaybetmeyi göze alamayacağın parayla oynama. 18+</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+<script src="app.js?v=22"></script>
+</body>
+</html>

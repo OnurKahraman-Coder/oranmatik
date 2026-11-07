@@ -1,0 +1,68 @@
+name: Veriyi guncelle ve yayinla
+
+on:
+  schedule:
+    - cron: '17 */3 * * *'   # 3 saatte bir (UTC)
+  workflow_dispatch: {}       # Actions sekmesinden elle calistirma
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  TZ: Europe/Istanbul
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Veriyi indir ve derle (bwin)
+        run: node tools/update-live.js
+
+      - name: Testler
+        run: node tools/test.js
+
+      - name: Siteyi uret
+        run: node tools/web.js
+
+      - name: Guncel veriyi depoya kaydet
+        run: |
+          git config user.name  "oranmatik-bot"
+          git config user.email "oranmatik-bot@users.noreply.github.com"
+          git add data/raw data/bwin-fixtures.json data/bulletin.json
+          if git diff --cached --quiet; then
+            echo "degisiklik yok"
+          else
+            git commit -m "veri: $(date '+%Y-%m-%d %H:%M')"
+            git push || echo "push basarisiz (onemsiz, site yine yayinlanir)"
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
