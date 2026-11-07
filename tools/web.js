@@ -18,10 +18,14 @@ const OUT = path.join(ROOT, 'site');
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'data'), { recursive: true });
 
-/* 1) statik dosyalar */
-for (const f of ['style.css', 'app.js', 'icon.svg', 'icon-192.png', 'icon-512.png', 'manifest.webmanifest', 'sw.js', 'local-api.js']) {
+/* 1) statik dosyalar: arayüz web/ klasöründen (sol maç listesi + tek sayfa analiz) */
+const WEB = path.join(ROOT, 'web');
+for (const f of ['icon.svg', 'icon-192.png', 'icon-512.png', 'manifest.webmanifest', 'local-api.js']) {
   fs.copyFileSync(path.join(PUB, f), path.join(OUT, f));
 }
+for (const f of ['web.css', 'web.js']) fs.copyFileSync(path.join(WEB, f), path.join(OUT, f));
+// eski sürümün service worker'ını kaldır (önbellekte eski arayüz kalmasın)
+fs.writeFileSync(path.join(OUT, 'sw.js'), "self.addEventListener('install',()=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.map(x=>caches.delete(x)))).then(()=>self.registration.unregister())));\n");
 
 /* 2) motor: CommonJS -> tarayıcı global */
 let engine = fs.readFileSync(path.join(ROOT, 'lib', 'engine.js'), 'utf8');
@@ -52,19 +56,14 @@ copyOr('bwin-fixtures.json', { fetchedAt: null, source: 'none', count: 0, matche
 copyOr('bulletin.json', { date: 0, dateText: '', count: 0, matches: [] });
 
 /* 5) index.html */
-let html = fs.readFileSync(path.join(PUB, 'index.html'), 'utf8');
-html = html.replace('<meta name="theme-color" content="#0a0e14">',
-  `<meta name="theme-color" content="#0a0e14">\n<meta name="data-version" content="${version}">\n<meta name="robots" content="noindex">`);
-const inject = `<script>window.OM_WEB = true;</script>
-<script src="engine.browser.js?v=${version}"></script>
-<script src="analyze.browser.js?v=${version}"></script>
-<script src="fixtures.browser.js?v=${version}"></script>
-<script src="panel.browser.js?v=${version}"></script>
-<script src="local-api.js?v=${version}"></script>
-<script src="app.js?v=${version}"></script>`;
-html = html.replace(/<script src="app\.js[^"]*"><\/script>/, inject);
-html = html.replace(/style\.css\?v=\d+/, `style.css?v=${version}`);
-if (!html.includes('window.OM_WEB')) throw new Error('index.html script enjeksiyonu basarisiz');
+let html = fs.readFileSync(path.join(WEB, 'index.html'), 'utf8');
+html = html.replace('<meta name="theme-color" content="#0d0f12">',
+  `<meta name="theme-color" content="#0d0f12">\n<meta name="data-version" content="${version}">\n<meta name="robots" content="noindex">`);
+const scripts = ['engine.browser.js', 'analyze.browser.js', 'fixtures.browser.js', 'panel.browser.js', 'local-api.js', 'web.js']
+  .map((f) => `<script src="${f}?v=${version}"></script>`).join('\n');
+html = html.replace('<!--SCRIPTS-->', scripts + `\n<script>if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(r=>r.forEach(x=>x.unregister())).catch(()=>{});}</script>`);
+html = html.replace('web.css"', `web.css?v=${version}"`);
+if (!html.includes('web.js?v=')) throw new Error('index.html script enjeksiyonu basarisiz');
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');
 fs.writeFileSync(path.join(OUT, '404.html'), '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./">');

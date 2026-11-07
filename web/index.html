@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0f12">
+<title>OranMatik — bwin benzer maç analizi</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="web.css">
+</head>
+<body>
+
+<div id="splash"><div class="sp-mark">Ø</div><div class="sp-sub" id="splashMsg">veri yükleniyor…</div></div>
+
+<div class="app">
+  <!-- ============ SOL: MAÇ LİSTESİ ============ -->
+  <aside class="side" id="side">
+    <div class="brand"><span class="mk">Ø</span> ORANMATİK <small>bwin</small></div>
+    <div class="dtabs" id="dtabs">
+      <button data-d="today" class="on">Bugün</button>
+      <button data-d="tomorrow">Yarın</button>
+      <button data-d="week">7 gün</button>
+      <button data-d="all">Tümü</button>
+      <button data-d="live">Canlı</button>
+    </div>
+    <input type="text" id="q" class="q" placeholder="Takım ara…" autocomplete="off">
+    <div class="mlist" id="mlist"><div class="empty">maçlar yükleniyor…</div></div>
+    <div class="sfoot" id="sfoot"></div>
+  </aside>
+
+  <!-- ============ SAĞ: ANALİZ ============ -->
+  <main class="main">
+    <button class="side-toggle" id="sideToggle">☰ Maç listesi</button>
+    <div class="eyebrow" id="eyebrow">BWIN ORANLARI · ARŞİV</div>
+    <h1>Bir maç seç, <em>20 benzer maçın</em> gerçek sonuçlarını gör.</h1>
+    <p class="lead">Soldaki listeden maçı seç. Sistem aynı bwin oran dizilimine sahip geçmiş maçları bulur ve
+      <b>2.5 üst/alt, KG, İY golleri, İY/MS ve skor dağılımını</b> yüzde olarak gösterir.</p>
+
+    <div class="manual">
+      <div class="mt">VEYA ORANLARI ELLE GİR</div>
+      <div class="mrow">
+        <label>1<input type="number" step="0.01" id="iH" placeholder="1.45"></label>
+        <label>X<input type="number" step="0.01" id="iD" placeholder="4.20"></label>
+        <label>2<input type="number" step="0.01" id="iA" placeholder="6.50"></label>
+        <label>2.5 Üst<input type="number" step="0.01" id="iO" placeholder="1.90"></label>
+        <label>2.5 Alt<input type="number" step="0.01" id="iU" placeholder="1.95"></label>
+        <button class="go" id="go">Analiz et</button>
+      </div>
+      <div class="mhint">Sadece 1-X-2 yeterli; 2.5 üst/alt girersen eşleşme daha isabetli olur.</div>
+    </div>
+
+    <div id="out"></div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>window.OM_WEB = true;</script>
+<!--SCRIPTS-->
+</body>
+</html>
